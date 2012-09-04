@@ -1,0 +1,5 @@
+#
+# 40clamav -- freshclam updates the configuration database
+#
+clamav ALL = NOPASSWD: /sbin/e-smith/db
+

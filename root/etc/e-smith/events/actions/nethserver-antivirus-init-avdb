@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Check if a mirror is reachable and start freshclam before running clamd
+# to avoid daemon startup errors..
+for MIRROR in `sed -n '/^DatabaseMirror/ s/DatabaseMirror // p' /etc/freshclam.conf`; do
+    if nc -z $MIRROR 80; then
+	echo Update virus signature database..
+	/usr/bin/freshclam --quiet
+	break;
+    fi
+done
+
+exit 0

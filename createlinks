@@ -1,0 +1,24 @@
+#!/usr/bin/perl -w
+
+use strict;
+use esmith::Build::CreateLinks qw(:all);
+
+
+my @templates = qw(
+    /etc/freshclam.conf
+    /etc/sudoers
+);
+
+#
+# nethserver-antivirus-UPDATE event
+#
+
+event_templates('nethserver-antivirus-update', @templates);
+
+event_actions('nethserver-antivirus-update',
+	      'initialize-default-databases' => '00',
+	      'nethserver-antivirus-init-avdb' => '30',
+	      'runlevel-adjust' => '50');
+
+event_services('nethserver-antivirus-update',
+	       'clamd' => 'restart');
