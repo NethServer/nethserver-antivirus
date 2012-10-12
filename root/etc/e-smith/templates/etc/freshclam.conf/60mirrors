@@ -1,0 +1,9 @@
+#
+# 60mirrors
+#
+
+DatabaseMirror db.{$clamd{CountryCode} || 'it'}.clamav.net
+DatabaseMirror db.local.clamav.net
+
+
+

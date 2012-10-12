@@ -1,0 +1,8 @@
+#
+# 30actions
+#
+OnUpdateExecute /usr/libexec/nethserver/freshclam-store-state updated
+OnErrorExecute /usr/libexec/nethserver/freshclam-store-state error
+OnOutdatedExecute /usr/libexec/nethserver/freshclam-store-state outdated-%v
+
+
