@@ -2,7 +2,7 @@ Summary: Integration of clamav antivirus for email and filesystem checks.
 Name: nethserver-antivirus
 Version: @@VERSION@@
 Release: @@RELEASE@@%{?dist}
-License: GPL
+License: GPLv3
 URL: http://dev.nethesis.it/projects/%{name}
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
