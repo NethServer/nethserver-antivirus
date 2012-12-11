@@ -40,8 +40,7 @@ event_queue add %{name}-update
 %defattr(-,root,root)
 
 
-%changelog
-* Tue Sep  4 2012 Davide Principi <davide.principi@nethesis.it> - 6.104-1
-- Initial build
 
+
+%changelog
 
