@@ -3,7 +3,7 @@ Name: nethserver-antivirus
 Version: @@VERSION@@
 Release: @@RELEASE@@
 License: GPLv3
-URL: http://dev.nethesis.it/projects/%{name}
+URL: %{url_prefix}/%{name} 
 Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
