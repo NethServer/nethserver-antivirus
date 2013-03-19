@@ -39,8 +39,6 @@ event_queue add %{name}-update
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
 
-
-
-
 %changelog
-
+* Tue Mar 19 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
+- spec file adjustments: use url_prefix macro and fixed Release tag expansion. #1654
