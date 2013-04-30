@@ -39,5 +39,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Tue Apr 30 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.2-1.ns6
+- Rebuild for automatic package handling. #1870
+
 * Tue Mar 19 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.1-1.ns6
 - spec file adjustments: use url_prefix macro and fixed Release tag expansion. #1654
