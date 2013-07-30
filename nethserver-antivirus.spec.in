@@ -39,6 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Tue Jul 30 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.4-1.ns6
+- Do not save freshclam status on SME db #2035
+- Web ui: move antivirus proxy configuration to nethserver-squidclamav package. #1959
+
 * Tue Jun 25 2013 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.3-1.ns6
 - Remove freshclam mirror checks #1907
 
