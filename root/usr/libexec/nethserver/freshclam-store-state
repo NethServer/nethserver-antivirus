@@ -2,6 +2,5 @@
 
 TIMESTAMP=`date -u "+%FT%TZ"`
 
-/usr/bin/sudo /sbin/e-smith/db configuration setprop clamd FreshclamState $1 FreshclamTimestamp ${TIMESTAMP}
-
+echo $1 ${TIMESTAMP} > /var/log/clamav/freshclam-updates.log
 
