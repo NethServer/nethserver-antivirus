@@ -1,4 +1,4 @@
-Summary: Integration of clamav antivirus for email and filesystem checks.
+Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
 Version: @@VERSION@@
 Release: @@RELEASE@@
@@ -8,14 +8,14 @@ Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
 Requires: nethserver-base
-Requires: clamd >= 0.97.5-2
+Requires: clamd >= 0.97.8-1
 
 BuildRequires: perl
 BuildRequires: nethserver-devtools
 
 
 %description
-Basic clamd configuration templates.
+Basic Clam AntiVirus configuration templates.
 
 %prep
 %setup
