@@ -1,10 +1,10 @@
+
 #
 # 10defaults -- Distro defaults
 #
-DatabaseDirectory /var/clamav
+DatabaseDirectory /var/lib/clamav
 UpdateLogFile /var/log/clamav/freshclam.log
 LogSyslog yes
-DatabaseOwner clamav
-NotifyClamd /etc/clamd.conf
+DatabaseOwner clam
 
 
