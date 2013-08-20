@@ -19,16 +19,14 @@
 # along with NethServer.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-FOUND=0
-eicar_db=/var/clamav/eicar.ndb
+db_dir=/var/lib/clamav
+eicar_db=${db_dir}/eicar.ndb
 
 # Ensure Eicar signature is present, at least:
 echo "Creating empty clamav signatures DB in ${eicar_db}.."
 echo "Eicar-Test-Signature:0:0:58354f2150254041505b345c505a58353428505e2937434329377d2445494341522d5354414e444152442d414e544956495255532d544553542d46494c452124482b482a" > $eicar_db
-[ -e $eicar_db ] && chown clamav.clamav $eicar_db
+[ -e $eicar_db ] && chown --reference=${db_dir} $eicar_db
 
 # Start freshclam 
-/usr/bin/nohup /usr/bin/freshclam --quiet >/dev/null 2>&1 &
+/usr/bin/setsid /usr/bin/freshclam --quiet &
 
-echo "WARNING: no more mirrors to try. clamav DB was not updated!" 1>&2
-exit 0
