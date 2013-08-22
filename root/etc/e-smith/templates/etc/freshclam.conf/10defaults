@@ -1,10 +1,10 @@
 
 #
-# 10defaults -- Distro defaults
+# 10defaults -- defaults from EPEL
 #
 DatabaseDirectory /var/lib/clamav
 UpdateLogFile /var/log/clamav/freshclam.log
-LogSyslog yes
+# LogSyslog yes                       # reset to freshclam default Refs #2109
 DatabaseOwner clam
 
 
