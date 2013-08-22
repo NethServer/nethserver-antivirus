@@ -24,6 +24,7 @@ use esmith::Build::CreateLinks qw(:all);
 
 
 my @templates = qw(
+    /etc/clamd.conf
     /etc/freshclam.conf
     /etc/sudoers
 );
