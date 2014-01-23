@@ -1,0 +1,2 @@
+#!/bin/bash
+/bin/sleep $[ $RANDOM % 5 ] && exec /etc/cron.daily/freshclam
