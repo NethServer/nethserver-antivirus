@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Wed Feb 05 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
+- freshclam should be run at least every hour - Bug #2504 [NethServer]
+
 * Mon Sep 02 2013 Davide Principi <davide.principi@nethesis.it> - 1.0.5-1.ns6
 - Antivirus: disable syslog messages - Enhancement #2109 [NethServer]
 - Upgrade ClamAV to 0.97.8  - Enhancement #2062 [NethServer]
