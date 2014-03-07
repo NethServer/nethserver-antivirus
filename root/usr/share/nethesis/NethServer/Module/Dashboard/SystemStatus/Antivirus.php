@@ -35,15 +35,6 @@ class Antivirus extends \Nethgui\Controller\AbstractController
 
     private function readAntivirus()
     {
-        $fh = $this->getPhpWrapper()->fopen("/var/log/clamav/freshclam-updates.log", "r");
-        if(is_resource($fh)) {
-            list($status, $timestamp) = $this->getPhpWrapper()->fscanf($fh, "%s %s");
-            $this->getPhpWrapper()->fclose($fh);
-        } else {
-            $status = '';
-            $timestamp = '';
-        }
-
         $max = 0;
         $fileList = glob('/var/lib/clamav/*.{cvd,cld}', GLOB_BRACE);
         foreach ($fileList as $file) {
@@ -53,28 +44,20 @@ class Antivirus extends \Nethgui\Controller\AbstractController
             }
         }
 
-        $staleSignatures = time() - $max > 3600 * 24 * 5;
-        $runningUpdates = time() - intval(strtotime($timestamp)) < 3600 * 12;
-
-        if ($runningUpdates && $staleSignatures && $status === 'error') {
+        $now = time();
+        $staleSignatures = $now - $max > 3600 * 24 * 3;
+        if ($staleSignatures) {
             $this->alarm = TRUE;
         }
 
-        $this->timestamp = $timestamp;       
+        $this->timestamp = min($max, $now);
     }
  
-    public function process()
-    {
-        $this->readAntivirus();
-    }
  
     public function prepareView(\Nethgui\View\ViewInterface $view)
     {
-        if (!$this->timestamp) {
-            $this->readAntivirus();
-        }
-
-        $view['timestamp'] = $this->timestamp;
+        $this->readAntivirus();
+        $view['timestamp'] = strftime("%F %R", $this->timestamp);
         $view['alarm'] = $this->alarm;
     }
 }
