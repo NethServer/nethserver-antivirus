@@ -39,6 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Mon Mar 10 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.7-1.ns6
+- Antivirus dashboard widget - Enhancement #2686 [NethServer]
+- Mail filter: remove clamav warning - Enhancement #2678 [NethServer]
+
 * Wed Feb 05 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.6-1.ns6
 - freshclam should be run at least every hour - Bug #2504 [NethServer]
 
