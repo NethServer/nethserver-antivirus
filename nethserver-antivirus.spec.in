@@ -9,6 +9,7 @@ BuildArch: noarch
 
 Requires: nethserver-base
 Requires: clamd >= 0.97.8-1
+Requires: clamav-unofficial-sigs
 
 BuildRequires: perl
 BuildRequires: nethserver-devtools
