@@ -28,6 +28,7 @@ ss_dbs="
    winnow_bad_cw.hdb
    winnow_extended_malware.hdb
    doppelstern.hdb
+   bofhland_cracked_URL.ndb
    bofhland_malware_attach.hdb
    bofhland_malware_URL.ndb
    bofhland_phishing_URL.ndb
