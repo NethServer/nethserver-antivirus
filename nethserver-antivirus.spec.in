@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Wed Aug 20 2014 Davide Principi <davide.principi@nethesis.it> - 1.1.0-1.ns6
+- Antivirus: add support for unofficial sigs - Enhancement #2831 [NethServer]
+
 * Mon Mar 10 2014 Davide Principi <davide.principi@nethesis.it> - 1.0.7-1.ns6
 - Antivirus dashboard widget - Enhancement #2686 [NethServer]
 - Mail filter: remove clamav warning - Enhancement #2678 [NethServer]
