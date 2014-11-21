@@ -35,6 +35,8 @@ ss_dbs="
    crdfam.clamav.hdb
    phishtank.ndb
    porcupine.ndb
+   foxhole_generic.cdb
+   foxhole_filename.cdb
 "
 
 # Additional Sanesecruity distributed database that can be used and
