@@ -85,6 +85,7 @@ si_dbs="
    securiteinfooffice.hdb
    securiteinfopdf.hdb
    securiteinfosh.hdb
+   securiteinfo.ign2
 "
 
 # Since the SecuriteInfo databases are only updated a few time each
