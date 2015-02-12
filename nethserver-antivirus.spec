@@ -1,7 +1,7 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 1.1.1
+Release: 1
 License: GPLv3
 URL: %{url_prefix}/%{name} 
 Source0: %{name}-%{version}.tar.gz
