@@ -1,7 +1,7 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.1.1
-Release: 1
+Version: 1.1.2
+Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
 Source0: %{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Thu Mar 05 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.2-1
+- clamav unofficial sigs whitelist - Enhancement #3033 [NethServer]
+
 * Tue Dec 09 2014 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.1-1.ns6
 - Support  Sanesecurity Foxhole - Feature #2897 [NethServer]
 
