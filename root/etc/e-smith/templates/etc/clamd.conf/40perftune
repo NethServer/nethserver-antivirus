@@ -1,0 +1,8 @@
+# optimizations
+HeuristicScanPrecedence yes
+MaxConnectionQueueLength 30
+MaxFiles 1000
+MaxFileSize 30M 
+MaxRecursion 5
+MaxScanSize 48M 
+
