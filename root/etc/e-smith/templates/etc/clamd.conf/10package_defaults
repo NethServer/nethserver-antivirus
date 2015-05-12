@@ -21,7 +21,7 @@ User clam
 AllowSupplementaryGroups yes
 ScanPE yes
 ScanELF yes
-DetectBrokenExecutables yes
+DetectBrokenExecutables no
 ScanOLE2 yes
 ScanMail yes
 ScanArchive yes
