@@ -8,10 +8,9 @@ Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
 Requires: nethserver-base
-Requires: clamd >= 0.97.8-1
+Requires: clamav-server
 Requires: clamav-unofficial-sigs
 
-BuildRequires: perl
 BuildRequires: nethserver-devtools
 
 
@@ -24,20 +23,16 @@ Basic Clam AntiVirus configuration templates.
 %build
 perl createlinks
 
-%install
-rm -rf $RPM_BUILD_ROOT
-(cd root; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
-%{genfilelist} $RPM_BUILD_ROOT > %{name}-%{version}-filelist
-echo "%doc COPYING" >> %{name}-%{version}-filelist
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%post
-
+%installg
+rm -rf %{buildroot}
+(cd root; find . -depth -print | cpio -dump %{buildroot})
+%{genfilelist} %{buildroot} > %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
+%doc COPYING
+%dir %{_nseventsdir}/%{name}-update
+
 
 %changelog
 * Thu Mar 05 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.2-1
