@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 
 %changelog
+* Tue Sep 29 2015 Davide Principi <davide.principi@nethesis.it> - 1.1.4-1
+- Make Italian language pack optional - Enhancement #3265 [NethServer]
+
 * Tue May 19 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.3-1
 - Remove SecuriteInfo sigs - Enhancement #3142 [NethServer]
 - Optimize clamd limits for performance - Enhancement #3141 [NethServer]
