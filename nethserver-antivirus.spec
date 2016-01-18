@@ -23,7 +23,7 @@ Basic Clam AntiVirus configuration templates.
 %build
 perl createlinks
 
-%installg
+%install
 rm -rf %{buildroot}
 (cd root; find . -depth -print | cpio -dump %{buildroot})
 %{genfilelist} %{buildroot} > %{name}-%{version}-filelist
