@@ -1,3 +1,15 @@
+# Set rsync connection and data transfer timeout limits in seconds.
+# The defaults settings here are reasonable, only change if you are
+# experiencing timeout issues.
+rsync_connect_timeout="15"
+rsync_max_time="60"
+
+# Set curl connection and data transfer timeout limits in seconds.
+# The defaults settings here are reasonable, only change if you are
+# experiencing timeout issues.
+curl_connect_timeout="15"
+curl_max_time="90"
+
 # Set working directory paths (edit to meet your own needs). If these
 # directories do not exist, the script will attempt to create them.
 # Top level working directory path:
@@ -11,7 +23,9 @@ gpg_dir="$work_dir/gpg-key"      # Sanesecurity GPG Key sub-directory
 add_dir="$work_dir/add-dbs"      # User defined databases sub-directory
 
 # If you would like to make a backup copy of the current running database
-# file before updating, leave the following variable set to "yes".
+# file before updating, leave the following variable set to "yes" and a
+# backup copy of the file will be created in the production directory
+# with -bak appended to the file name.
 keep_db_backup="no"
 
 # If you want to silence the information reported by curl, rsync, gpg

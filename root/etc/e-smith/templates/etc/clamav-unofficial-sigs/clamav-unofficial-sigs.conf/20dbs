@@ -5,12 +5,15 @@
 # disable usage of any of the Sanesecurity distributed database files
 # shown, remove the database file name from the quoted section below.
 # To disable usage of all Sanesecurity distributed databases, comment
-# all of the quoted lines below.  Only the following "low" risk define
-# signature databases have been enabled by default (for additional
-# information about the signature database ratings, see: 
-# http://www.sanesecurity.com/clamav/databases.htm).  Finally, make
-# sure that the database names are spelled correctly or you will
-# experience issues when the script runs.
+# all of the quoted lines below.  Only databases defined as "low" risk
+# have been enabled by default (for additional information about the
+# database ratings, see: http://www.sanesecurity.com/clamav/databases.htm).
+# Only add signature databases here that are "distributed" by Sanesecuirty
+# as defined at the URL shown above.  Database distributed by others sources
+# (e.g., SecuriteInfo & MalewarePatrol, can be added to other sections of
+# this config file below).  Finally, make sure that the database names are
+# spelled correctly or you will experience issues when the script runs
+# (hint: all rsync servers will fail to download signature updates).
 ss_dbs="
    blurl.ndb
    junk.ndb
@@ -20,13 +23,13 @@ ss_dbs="
    sanesecurity.ftm
    scam.ndb
    sigwhitelist.ign2
-   spamimg.hdb
-   winnow_malware.hdb
-   winnow_malware_links.ndb
    spamattach.hdb
+   spamimg.hdb
    winnow.attachments.hdb
    winnow_bad_cw.hdb
    winnow_extended_malware.hdb
+   winnow_malware.hdb
+   winnow_malware_links.ndb
    bofhland_cracked_URL.ndb
    bofhland_malware_attach.hdb
    bofhland_malware_URL.ndb
@@ -38,34 +41,6 @@ ss_dbs="
    foxhole_filename.cdb
 "
 
-# Additional Sanesecruity distributed database that can be used and
-# their associated potential fales-positive ratings:
-#
-# USE 'ONLY' ONE OF THE FOLLOWING TWO SIGNATURE DATABASES:
-#
-# INetMsg-SpamDomains-2w.ndb    : MEDIUM false-positive rating
-# INetMsg-SpamDomains-2m.ndb    : MEDIUM false-positive rating
-#
-# ONE DATABASE CONTAINS THE LAST TWO WEEKS OF COLLECTED SPAM DOMAINS (2w), AND
-# THE OTHER DATABASE CONTAINS THE LAST TWO MONTHS OF COLLECTED SPAM DOMAINS (2m).
-#
-# jurlbla.ndb                   : MEDIUM false-positive rating
-# lott.ndb                      : MEDIUM false-positive rating
-# spam.ldb                      : MEDIUM false-positive rating
-# spear.ndb                     : MEDIUM false-positive rating
-# scamnailer.ndb                : MEDIUM false-positive rating
-# winnow.complex.patterns.ldb   : MEDIUM false-positive rating
-# winnow_phish_complete.ndb     : HIGH false-positive rating
-# winnow_phish_complete_url.ndb : MEDIUM false-positive rating
-# winnow_spam_complete.ndb      : MEDIUM false-positive rating
-#
-# USE 'ONLY' ONE OF THE FOLLOWING TWO SIGNATURE DATABASES:
-#
-# winnow_phish_complete.ndb     : HIGH false-positive rating
-# winnow_phish_complete_url.ndb : MEDIUM false-positive rating
-#
-# ONE CONTAINS THE COMPLETE URL PATH (MEDIUM RISK), AND THE OTHER
-# CONTAINS ONLY THE URL, WITHOUT THE FULL PATH (HIGH RISK).
 
 # Additional signature databases can be specified here in the following
 # format: PROTOCOL://URL-or-IP/PATH/TO/FILE-NAME (use a trailing "/" in

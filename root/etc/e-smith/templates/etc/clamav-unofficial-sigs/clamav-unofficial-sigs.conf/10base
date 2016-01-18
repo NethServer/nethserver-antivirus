@@ -1,12 +1,9 @@
 # This file contains user configuration settings for the clamav-unofficial-sigs.sh
-# script provide by Bill Landry (bill@inetmsg.com).
+# Script provide by Bill Landry (unofficialsigs@gmail.com).
 #
-# Script documentation and updates can be viewed/downloaded from:
+# Script updates can be found at: http://sourceforge.net/projects/unofficial-sigs
 #
-#     http://www.inetmsg.com/pub/
-#
-# The latest version will always be named: clamav-unofficial-sigs.tar.gz
-# Older versions can be found in the "archive" directory.
+# License: BSD (Berkeley Software Distribution)
 
 ################################################################################
 #                     USER CONFIGURATION FILE FOR SCRIPT:                      #
@@ -37,15 +34,26 @@ export PATH
 # Set the appropriate ClamD user and group accounts for your system.
 # If you do not want the script to set user and group permissions on
 # files and directories, comment the next two variables.
-clam_user="clam"
-clam_group="clam"
+clam_user="clamupdate"
+clam_group="clamupdate"
+
+# If you do not want the script to change the file mode of all signature
+# database files in the ClamAV working directory to 0644 (-rw-r--r--):
+#
+# owner: read, write
+# group: read
+# world: read
+#
+# as defined in the "clam_dbs" path variable below, then set the following
+# "setmode" variable to "no".
+setmode="yes"
 
 # Set path to ClamAV database files location.  If unsure, check
 # your clamd.conf file for the "DatabaseDirectory" path setting.
 clam_dbs="/var/lib/clamav"
 
 # Set path to clamd.pid file (see clamd.conf for path location).
-clamd_pid="/var/run/clamav/clamd.pid"
+clamd_pid="/var/run/clamd.scan/clamd.pid"
 
 # To enable "ham" (non-spam) directory scanning and removal of
 # signatures that trigger on ham messages, uncomment the following
@@ -97,7 +105,7 @@ reload_opt="clamdscan --reload"  # Default
 enable_random="yes"
 
 # If download time randomization is enabled above (enable_random="yes"),
-# then set the min and max radomization times intervals (in seconds).
+# then set the min and max radomization time intervals (in seconds).
 min_sleep_time="60"    # Default minimum is 60 seconds (1 minute).
 max_sleep_time="600"   # Default maximum is 600 seconds (10 minutes).
 
