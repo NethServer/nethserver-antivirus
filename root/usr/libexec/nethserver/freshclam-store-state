@@ -1,6 +1,0 @@
-#!/bin/bash
-
-TIMESTAMP=`date -u "+%FT%TZ"`
-
-echo $1 ${TIMESTAMP} > /var/log/clamav/freshclam-updates.log
-
