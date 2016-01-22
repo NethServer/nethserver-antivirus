@@ -36,7 +36,7 @@ class Antivirus extends \Nethgui\Controller\AbstractController
     private function readAntivirus()
     {
         $max = 0;
-        $fileList = glob('/var/lib/clamav/*.{cvd,cld}', GLOB_BRACE);
+        $fileList = glob('/var/lib/clamav/*.{cvd,cld,ndb,hdb,cdb}', GLOB_BRACE);
         foreach ($fileList as $file) {
             $changeTime = filemtime($file);
             if ($changeTime > $max) {
