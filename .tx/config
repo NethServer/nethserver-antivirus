@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[nethserver.Dashboard_SystemStatus_Antivirus]
+[nethserver-v6.Dashboard_SystemStatus_Antivirus]
 source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_Dashboard_SystemStatus_Antivirus.php
 source_lang = en
 type = PHP_ALT_ARRAY
