@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.1.5
+Version: 1.2.0
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -35,6 +35,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 07 2016 Stefano Fancello <stefano.fancello@nethesis.it> - 1.2.0-1
+- First NS7 release
+
 * Thu Feb 18 2016 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.1.5-1
 - Update to clamav-0.99 + extra sigs - Enhancement #3349 [NethServer]
 - Dashboard antivirus update status - Enhancement #3340 [NethServer]
