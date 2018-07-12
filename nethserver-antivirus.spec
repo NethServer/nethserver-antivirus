@@ -8,7 +8,7 @@ Source0: %{name}-%{version}.tar.gz
 BuildArch: noarch
 
 Requires: nethserver-base
-Requires: clamav-server, clamav-server-systemd
+Requires: clamd
 Requires: clamav-unofficial-sigs
 
 BuildRequires: nethserver-devtools
