@@ -1,0 +1,26 @@
+{
+my $host = $proxy{host};
+my $port = $proxy{port} || "3128";
+my $user = $proxy{user};
+my $password = $proxy{password};
+if ($host ne "") {
+
+$OUT .=<<"EOF";
+#
+# 20proxy - proxy settings
+#
+HTTPProxyServer $host
+HTTPProxyPort $port
+EOF
+
+  if ($user ne "" and $password ne "") {
+
+$OUT .=<<"EOF";
+HTTPProxyUsername $user
+HTTPProxyPassword $password
+EOF
+
+  }
+}
+
+}
