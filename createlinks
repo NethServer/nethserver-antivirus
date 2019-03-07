@@ -40,13 +40,9 @@ event_actions('nethserver-antivirus-update',
 	      'nethserver-antivirus-init-avdb' => '30');
 
 #
-# proxy-modify event and action
+# proxy-modify event template
 #
 
 event_templates('proxy-modify', qw(
     /etc/freshclam.conf
-));
-
-event_actions('proxy-modify', qw(
-    nethserver-antivirus-init-avdb 30
 ));

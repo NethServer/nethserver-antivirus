@@ -22,9 +22,6 @@
 db_dir=/var/lib/clamav
 eicar_db=${db_dir}/eicar.ndb
 
-# set safe permission for config file because of proxy password
-chmod 600 /etc/freshclam.conf
-
 # Early exit if eicar.ndb is already present
 [ -e $eicar_db ] && exit 0
 # Ensure Eicar signature is present, at least:
