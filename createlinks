@@ -37,7 +37,8 @@ event_templates('nethserver-antivirus-update', @templates);
 
 event_actions('nethserver-antivirus-update',
 	      'initialize-default-databases' => '00',
-	      'nethserver-antivirus-init-avdb' => '30');
+	      'nethserver-antivirus-init-avdb' => '30',
+          'nethserver-antivirus-officialsigs' => '40');
 
 #
 # proxy-modify event template

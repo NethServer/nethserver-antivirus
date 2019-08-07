@@ -15,5 +15,11 @@
 ## 'disabled-warn'  ...  disables the automatic freshclam update and
 ##                         gives out a warning
 ## 'disabled'       ...  disables the automatic freshclam silently
-# FRESHCLAM_DELAY=
-
+{
+    my $sig = $clamd{'OfficialSignatures'} || 'enabled';
+    if ($sig eq 'disabled') {
+        $OUT .= "FRESHCLAM_DELAY=disabled";
+    } else {
+        $OUT .= "#FRESHCLAM_DELAY=";
+    }
+}
