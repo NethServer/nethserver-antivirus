@@ -25,7 +25,7 @@ use esmith::Build::CreateLinks qw(:all);
 
 my @templates = qw(
     /etc/freshclam.conf
-    /etc/clamav-unofficial-sigs/clamav-unofficial-sigs.conf
+    /etc/clamav-unofficial-sigs/user.conf
     /etc/sysconfig/freshclam
 );
 

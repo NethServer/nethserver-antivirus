@@ -1,0 +1,12 @@
+# =========================
+# Additional signature databases
+# =========================
+#declare -a additional_dbs=(
+#   ftp://ftp.example.net/pub/sigs.ndb
+#   http://www.example.org/sigs.ldb
+#) #END ADDITIONAL DATABASES
+
+# Uncomment the following line to enable the script
+user_configuration_complete="yes"
+
+# https://eXtremeSHOK.com ######################################################

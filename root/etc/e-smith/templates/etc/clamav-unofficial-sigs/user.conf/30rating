@@ -1,0 +1,12 @@
+# Default dbs rating
+# valid rating: LOW, MEDIUM, HIGH
+default_dbs_rating="{{uc($clamd{'UnofficialSignaturesRating'} || 'low')}}"
+
+# Per Database
+# These ratings will override the global rating for the specific database
+# valid rating: LOW, MEDIUM, HIGH, DISABLE
+#sanesecurity_dbs_rating=""
+#securiteinfo_dbs_rating=""
+#linuxmalwaredetect_dbs_rating=""
+#yararulesproject_dbs_rating=""
+

@@ -1,0 +1,7 @@
+#malwarepatrol_receipt_code="YOUR-RECEIPT-NUMBER"
+#malwarepatrol_product_code="8"
+#malwarepatrol_list="clamav_basic" # clamav_basic or clamav_ext
+#malwarepatrol_free="yes"
+
+#securiteinfo_authorisation_signature="YOUR-SIGNATURE-NUMBER"
+
