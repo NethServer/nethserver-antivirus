@@ -17,3 +17,21 @@ Database example: ::
  clamd=configuration
     OfficialSignatures=disabled
     UnofficialSignaturesRating=low
+
+Disable official signatures
+===========================
+
+Official signatures find only very few virus but have a big memory usage.
+To disable the official signatures: ::
+
+  config setprop clamd OfficialSignatures disabled
+  signal-event nethserver-antivirus-update
+
+Select signature rating
+=======================
+
+Unofficial signatures can be selected using their raiting.
+To change the rating use: ::
+
+  config setprop clamd UnofficialSignaturesRating medium
+  signal-event nethserver-antivirus-update
