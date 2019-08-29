@@ -35,3 +35,9 @@ officialsig=$(/sbin/e-smith/config getprop clamd OfficialSignatures)
 if [ "$officialsig" == "disabled" ]; then
     rm -f /var/lib/clamav/{bytecode.???,daily.???,main.???}
 fi
+
+# Remove old unused clamav-unofficial-sigs config file
+rm -f /etc/clamav-unofficial-sigs/clamav-unofficial-sigs.conf
+
+# Restart all clamd instances
+systemctl try-restart clamd@*
