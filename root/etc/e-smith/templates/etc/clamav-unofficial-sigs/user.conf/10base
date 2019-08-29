@@ -21,6 +21,7 @@
 # Please note, it is your responsibility to manage the contents of this file.
 # Values provided here are just examples, feel free to use any values from the main config file.
 
-# NethServer: restart all clamd instances
-clamd_reload_opt="systemctl try-restart clamd@*"
+# NethServer: reload and restart all clamd instances
+clamd_reload_opt="systemctl reload clamd@*"
+clamd_restart_opt="systemctl try-restart clamd@*"
 
