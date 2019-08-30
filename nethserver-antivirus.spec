@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.2.2
+Version: 1.3.0
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -35,6 +35,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Aug 30 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.0-1
+- Antivirus: improve memory usage - NethServer/dev#5803
+
 * Tue Mar 12 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.2.2-1
 - ClamAV database doesn't get updated behind manual proxy - NethServer/dev#5727
 - Requires only clamd package
