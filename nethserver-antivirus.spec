@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -35,6 +35,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Sep 12 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.1-1
+- Increate start timeout to 8 minutes - NethServer/dev#5803
+
 * Fri Aug 30 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.3.0-1
 - Antivirus: improve memory usage - NethServer/dev#5803
 
