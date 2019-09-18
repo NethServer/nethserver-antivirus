@@ -20,3 +20,22 @@
 # along with NethServer.  If not, see COPYING.
 #
 
+import sys
+import subprocess
+import simplejson
+import fileinput
+
+def read_config(config_name):
+    bash_command = "/sbin/e-smith/config getjson %s" % config_name
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    config_json = simplejson.loads(output)
+    return config_json
+
+try:
+    clamd_config = read_config('clamd')
+    output = simplejson.dumps({'configuration': clamd_config})
+    print (output)
+except Exception, e:
+    print simplejson.dumps({ 'error': "%s" % e })
+    sys.exit(1)

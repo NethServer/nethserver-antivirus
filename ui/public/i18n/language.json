@@ -1,6 +1,12 @@
 {
     "settings": {
-        "title": "Settings"
+        "title": "Settings",
+        "official_signatures": "Official signatures",
+        "unofficial_signatures_rating": "Unofficial signatures rating",
+        "error_reading_configuration": "Error reading configuration",
+        "error_validating_configuration": "Error validating configuration",
+        "configuration_update_successful": "Configuration update succesful",
+        "configuration_update_failed": "Configuration update failed"
     },
     "about": {
         "title": "About",
@@ -16,7 +22,7 @@
         "filter_label": "Regexp filter"
     },
     "dashboard":{
-        "title": "Hotspot"
+        "title": "Antivirus"
     },
     "docs": {
     },
