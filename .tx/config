@@ -6,4 +6,7 @@ source_file = root/usr/share/nethesis/NethServer/Language/en/NethServer_Module_D
 source_lang = en
 type = PHP_ALT_ARRAY
 
-
+[nethserver.CockpitAntivirus]
+source_file = ui/public/i18n/language.json
+source_lang = en
+type = KEYVALUEJSON
