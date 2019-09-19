@@ -27,8 +27,8 @@
       <div class="form-group">
         <div class="col-xs-12 col-sm-3 col-md-2">
           <select id="selectLogPath" class="selectpicker form-control" v-model="view.path" v-on:change="handleLogs()">
-            <option selected>dedalo ////</option>
-            <option>/var/log/squid/dedalo.log ////</option>
+            <option selected>clamd@rspamd</option>
+            <option>clamd@squidclamav</option>
           </select>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-8">
@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       view: {
-        path: "dedalo", ////
+        path: "clamd@rspamd",
         logsLoaded: false,
         logsContent: "",
         follow: false,
@@ -129,7 +129,7 @@ export default {
         {
           action: this.view.follow ? "follow" : "dump",
           lines: this.view.follow ? null : this.view.lines,
-          mode: this.view.path === "dedalo" ? "systemd" : "file", ////
+          mode: "systemd",
           filter: this.view.filter,
           paths: [this.view.path]
         },
@@ -160,8 +160,7 @@ export default {
           context.view.logsLoaded = true;
           context.logsContent = error;
         },
-        false,
-        "/usr/libexec/nethserver/api/nethserver-dedalo/logs/execute" ////
+        false
       );
     }
   }
