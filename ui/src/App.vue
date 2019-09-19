@@ -86,6 +86,7 @@ export default {
 .divider {
   border-bottom: 1px solid #d1d1d1;
 }
+
 .v-suggestions .items {
   max-height: 290px;
   overflow-y: hidden;
@@ -99,5 +100,40 @@ export default {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   font-size: 12px;
   text-align: left;
+}
+
+.stats-container {
+  padding: 20px !important;
+  border-width: initial !important;
+  border-style: none !important;
+  border-color: initial !important;
+  -o-border-image: initial !important;
+  border-image: initial !important;
+}
+
+.stats-count {
+  font-size: 26px;
+  font-weight: 300;
+  margin-right: 10px;
+  float: left;
+  line-height: 1;
+}
+
+.stats-description {
+  float: left;
+  line-height: 1;
+}
+
+.stats-text {
+  margin-top: 10px !important;
+  display: block;
+}
+
+.green {
+  color: #3f9c35;
+}
+
+.red {
+  color: #cc0000;
 }
 </style>

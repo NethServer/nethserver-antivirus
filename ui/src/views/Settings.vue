@@ -13,7 +13,7 @@
 
     <div v-if="!uiLoaded" class="spinner spinner-lg"></div>
     <div v-if="uiLoaded">
-      <form class="form-horizontal" v-on:submit.prevent="saveConfiguration">
+      <form class="form-horizontal mg-top-30" v-on:submit.prevent="saveConfiguration">
         <!-- official signatures -->
         <div class="form-group">
           <label
@@ -166,4 +166,7 @@ export default {
 </script>
 
 <style scoped>
+.mg-top-30 {
+  margin-top: 30px;
+}
 </style>
