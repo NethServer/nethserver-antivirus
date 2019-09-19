@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+function instance_data() {
+    instance=$1
+    status=$(systemctl is-active clamd@$instance)
+
+    if [ "$status" == "active" ]; then
+        is_active=true
+    else
+        is_active=false
+    fi
+
+    num_malware=$(journalctl -u clamd@$instance | grep FOUND | wc -l)
+    num_signatures=$(journalctl -u clamd@$instance | sed -nr "s/.*[^0-9]([0-9]+) signatures.*/\1/p" | tail -n 1)
+
+    # malware chart data
+
+    chart_data=$(journalctl -u clamd@$instance | grep FOUND | awk '{print $7}' | sort | uniq -c)
+    chart_entries=""
+
+    IFS=$'\n'
+    for line in $chart_data
+    do
+        chart_entries=$chart_entries[\"`echo $line | awk '{print $2}'`\",`echo $line | awk '{print $1}'`],
+    done
+    unset IFS
+
+    # remove trailing comma if there is at lest one entry
+    if [[ $chart_entries ]]; then
+        chart_entries=${chart_entries::-1}
+    fi
+
+    echo "\"$instance\": { \"active\": $is_active, \"malwareFound\": $num_malware, \"signatures\": $num_signatures, \"malwareStats\": [$chart_entries] }"
+}
+
+rspamd_data=$(instance_data rspamd)
+squidclamav_data=$(instance_data squidclamav)
+
+echo -n "{ $rspamd_data, $squidclamav_data }"

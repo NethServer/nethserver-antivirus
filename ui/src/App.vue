@@ -84,6 +84,7 @@ export default {
 
 <style>
 .divider {
+  margin-top: 20px;
   border-bottom: 1px solid #d1d1d1;
 }
 

@@ -26,9 +26,11 @@
         "email_protection": "Email protection",
         "web_protection": "Web protection",
         "error_getting_dashboard_data": "Error getting dashboard data",
-        "virus_found": "Virus found",
+        "malware_found": "Malware found",
         "signatures_loaded": "Signatures loaded",
-        "status": "Status"
+        "status": "Status",
+        "no_data_available": "No data available",
+        "other": "Other"
     },
     "docs": {
     },
