@@ -33,7 +33,7 @@ import About from './views/About.vue'
 import UtilService from "./services/util"
 import "./filters/filters"
 
-window.c3 = require('c3'); //// todo used?
+window.c3 = require('c3');
 
 Vue.config.productionTip = false
 Vue.use(VueToggleButton);

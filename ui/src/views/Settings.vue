@@ -78,7 +78,6 @@ export default {
       uiLoaded: false,
       errorMessage: null,
       clamdConfig: null,
-      officialSignatures: false, //// useless
       unofficialSignaturesRatingList: [
         "low",
         "medium",
