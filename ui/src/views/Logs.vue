@@ -23,45 +23,53 @@
 <template>
   <div>
     <h2>{{$t('logs.title')}}</h2>
-    <form class="form-horizontal">
-      <div class="form-group">
-        <div class="col-xs-12 col-sm-3 col-md-2">
-          <select id="selectLogPath" class="selectpicker form-control" v-model="view.path" v-on:change="handleLogs()">
-            <option selected>clamd@rspamd</option>
-            <option>clamd@squidclamav</option>
-          </select>
+    <div v-if="!uiLoaded" class="spinner spinner-lg"></div>
+    <div v-if="uiLoaded">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <select id="selectLogPath" class="combobox form-control" v-model="view.path" v-on:change="handleLogs()">
+              <option
+                v-for="(instance, index) in installedInstances"
+                v-bind:key="index"
+                :value="instance"
+              >
+                {{ instance }}
+              </option>
+            </select>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-8">
+            <button
+              type="button"
+              v-on:click="toggleFollow()"
+              class="btn btn-default"
+            ><span v-bind:class="['fa', view.follow ? 'fa-stop':'fa-play']"></span>
+            &nbsp;{{view.follow ? $t('logs.stop_follow_button') : $t('logs.start_follow_button')}}</button>
+          </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-8">
-          <button
-            type="button"
-            v-on:click="toggleFollow()"
-            class="btn btn-default"
-          ><span v-bind:class="['fa', view.follow ? 'fa-stop':'fa-play']"></span>
-          &nbsp;{{view.follow ? $t('logs.stop_follow_button') : $t('logs.start_follow_button')}}</button>
+      </form>
+      <form role="form" class="search-pf has-button form-horizontal" v-on:submit.prevent="">
+        <div class="form-group has-clear">
+          <div class="search-pf-input-group">
+            <label for="search1" class="sr-only">Search</label>
+            <input
+                v-model.lazy="view.filter"
+                v-on:change="handleLogs()"
+                v-bind:placeholder="$t('logs.filter_label')"
+                id="log-filter"
+                class="filter form-control"
+                type="search"
+            >
+            <button type="button" class="clear" aria-hidden="true"><span class="pficon pficon-close"></span></button>
+          </div>
         </div>
-      </div>
-    </form>
-    <form role="form" class="search-pf has-button form-horizontal" v-on:submit.prevent="">
-      <div class="form-group has-clear">
-        <div class="search-pf-input-group">
-          <label for="search1" class="sr-only">Search</label>
-          <input
-              v-model.lazy="view.filter"
-              v-on:change="handleLogs()"
-              v-bind:placeholder="$t('logs.filter_label')"
-              id="log-filter"
-              class="filter form-control"
-              type="search"
-          >
-          <button type="button" class="clear" aria-hidden="true"><span class="pficon pficon-close"></span></button>
+        <div class="form-group">
+          <button class="btn btn-primary" type="button"><span class="fa fa-search"></span></button>
         </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="button"><span class="fa fa-search"></span></button>
-      </div>
-    </form>
-    <div v-if="!view.logsLoaded" id="loader" class="spinner spinner-lg view-spinner"></div>
-    <pre v-else id="logs-output" class="logs">{{view.logsContent}}</pre>
+      </form>
+      <div v-if="!view.logsLoaded" id="loader" class="spinner spinner-lg view-spinner"></div>
+      <pre v-else id="logs-output" class="logs">{{view.logsContent}}</pre>
+    </div>
   </div>
 </template>
 
@@ -69,6 +77,7 @@
 export default {
   name: "Logs",
   mounted() {
+    this.getInstalledInstances();
     var context = this;
     window.jQuery('#selectLogPath').selectpicker();
     (function($) {
@@ -98,14 +107,16 @@ export default {
   data() {
     return {
       view: {
-        path: "clamd@rspamd",
+        path: "",
         logsLoaded: false,
         logsContent: "",
         follow: false,
         filter: "",
         lines: 100,
         process: null
-      }
+      },
+      uiLoaded: false,
+      installedInstances: []
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -161,6 +172,32 @@ export default {
           context.logsContent = error;
         },
         false
+      );
+    },
+    getInstalledInstances() {
+      var ctx = this;
+      nethserver.exec(
+        ["nethserver-antivirus/logs/read"],
+        null,
+        null,
+        function(success) {
+          success = JSON.parse(success);
+          ctx.installedInstances = success.installedInstances;
+          // var instance
+
+          // for (instance of success.installedInstances) {
+          //   ctx.instances.push(instance)
+          // }
+
+          if (ctx.installedInstances.length > 0) {
+            ctx.view.path = ctx.installedInstances[0]
+            ctx.handleLogs()
+          }
+          ctx.uiLoaded = true;
+        },
+        function(error) {
+          ctx.showErrorMessage(ctx.$i18n.t("logs.error_getting_clamav_instances"), error)
+        }
       );
     }
   }

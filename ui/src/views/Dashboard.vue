@@ -13,10 +13,23 @@
     <div v-show="!uiLoaded" class="spinner spinner-lg"></div>
     <div v-show="uiLoaded">
 
+      <!-- empty state: rspamd and squidclamav not installed -->
+      <div class="row blank-slate-pf" v-if="uiLoaded && !dashboardData.rspamd.installed && !dashboardData.squidclamav.installed">
+        <div class="blank-slate-pf-icon">
+          <div class="fa fa-exclamation-circle"></div>
+            <h1>{{$t('dashboard.no_instance_installed')}}</h1>
+          </div>
+        </div>
+      </div>
+
       <!-- rspamd -->
-      <div class="row" v-if="uiLoaded">
+      <div class="row" v-if="uiLoaded && dashboardData.rspamd.installed">
+        <h4 class="right gray mg-top-20">
+          {{$t('dashboard.since')}}
+          <b>{{ rspamdSince | dateFormat }}</b>
+        </h4>
         <h3>{{ $t('dashboard.email_protection') }}</h3>
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             <span
               :class="dashboardData.rspamd.active ? 'fa fa-check green' : 'fa fa-times red'"
@@ -29,7 +42,7 @@
           </span>
         </div>
 
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             {{ dashboardData.rspamd.malwareFound }}
           </span>
@@ -40,7 +53,7 @@
           </span>
         </div>
 
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             {{ dashboardData.rspamd.signatures }}
           </span>
@@ -50,27 +63,43 @@
             </span>
           </span>
         </div>
+
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
+          <span class="card-pf-utilization-card-details-count stats-count">
+            {{ (dashboardData.rspamd.memoryUsedKb * 1024) | byteFormat }}
+          </span>
+          <span class="card-pf-utilization-card-details-description stats-description">
+            <span class="card-pf-utilization-card-details-line-2 stats-text">
+              {{ $t('dashboard.memory_used') }}
+            </span>
+          </span>
+        </div>
       </div>
 
       <!-- rspamd malware chart -->
       <div class="row">
         <div
           id="pie-chart-rspamd"
-          v-show="uiLoaded && dashboardData.rspamd.malwareStats.length > 0"
+          class="pie-chart"
+          v-show="uiLoaded && dashboardData.rspamd.installed && dashboardData.rspamd.malwareStats.length > 0"
         ></div>
-        <div v-show="uiLoaded && dashboardData.rspamd.malwareStats.length == 0" class="empty-piechart">
+        <div v-show="uiLoaded && dashboardData.rspamd.installed && dashboardData.rspamd.malwareStats.length == 0" class="empty-piechart">
           <div class="fa fa-pie-chart"></div>
           <div>{{$t('dashboard.no_data_available')}}</div>
         </div>
       </div>
 
-      <div class="divider"></div>
+      <div class="divider" v-if="uiLoaded && dashboardData.rspamd.installed && dashboardData.squidclamav.installed"></div>
 
       <!-- squidclamav -->
-      <div class="row" v-if="uiLoaded">
+      <div class="row" v-if="uiLoaded && dashboardData.squidclamav.installed">
+        <h4 class="right gray mg-top-20">
+          {{$t('dashboard.since')}}
+          <b>{{ squidclamavSince | dateFormat }}</b>
+        </h4>
         <h3>{{ $t('dashboard.web_protection') }}</h3>
 
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             <span
               :class="dashboardData.squidclamav.active ? 'fa fa-check green' : 'fa fa-times red'"
@@ -83,7 +112,7 @@
           </span>
         </div>
 
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span
             class="card-pf-utilization-card-details-count stats-count"
           >{{ dashboardData.squidclamav.malwareFound }}</span>
@@ -94,7 +123,7 @@
           </span>
         </div>
 
-        <div class="stats-container col-xs-12 col-sm-4 col-md-4 col-lg-4">
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             {{ dashboardData.squidclamav.signatures }}</span>
           <span class="card-pf-utilization-card-details-description stats-description">
@@ -103,15 +132,27 @@
             >{{ $t('dashboard.signatures_loaded') }}</span>
           </span>
         </div>
+
+        <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
+          <span class="card-pf-utilization-card-details-count stats-count">
+            {{ (dashboardData.squidclamav.memoryUsedKb * 1024) | byteFormat }}
+          </span>
+          <span class="card-pf-utilization-card-details-description stats-description">
+            <span class="card-pf-utilization-card-details-line-2 stats-text">
+              {{ $t('dashboard.memory_used') }}
+            </span>
+          </span>
+        </div>
       </div>
       
       <!-- squidclamav malware chart -->
       <div class="row">
         <div
           id="pie-chart-squidclamav"
-          v-show="uiLoaded && dashboardData.squidclamav.malwareStats.length > 0"
+          class="pie-chart"
+          v-show="uiLoaded && dashboardData.squidclamav.installed && dashboardData.squidclamav.malwareStats.length > 0"
         ></div>
-        <div v-show="uiLoaded && dashboardData.squidclamav.malwareStats.length == 0" class="empty-piechart">
+        <div v-show="uiLoaded && dashboardData.squidclamav.installed && dashboardData.squidclamav.malwareStats.length == 0" class="empty-piechart">
           <div class="fa fa-pie-chart"></div>
           <div>{{$t('dashboard.no_data_available')}}</div>
         </div>
@@ -136,6 +177,8 @@ export default {
         "rspamd": null,
         "squidclamav": null
       },
+      rspamdSince: 0,
+      squidclamavSince: 0
     };
   },
   methods: {
@@ -155,11 +198,16 @@ export default {
         function(success) {
           success = JSON.parse(success);
           ctx.dashboardData = success;
+          ctx.convertSinceTime();
           ctx.uiLoaded = true;
 
           setTimeout(function() {
-            ctx.initEmailMalwareChart();
-            ctx.initWebMalwareChart();
+            if (ctx.dashboardData.rspamd.installed) {
+              ctx.initMalwareChart('rspamd');
+            }
+            if (ctx.dashboardData.squidclamav.installed) {
+              ctx.initMalwareChart('squidclamav');
+            }
           }, 250);
         },
         function(error) {
@@ -167,54 +215,37 @@ export default {
         }
       );
     },
-    initEmailMalwareChart() {
-      var c3ChartDefaults = $().c3ChartDefaults();
+    convertSinceTime() {
+      if (this.dashboardData.rspamd.sinceIso) {
+        this.rspamdSince = new Date(this.dashboardData.rspamd.sinceIso).getTime();
+      } else {
+        this.rspamdSince = 0
+      }
 
-      var pieData = {
-        type : 'pie',
-        columns: this.groupSmallPieCategories(this.dashboardData.rspamd.malwareStats)
-      };
-
-      var pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
-      pieChartConfig.bindto = '#pie-chart-rspamd';
-      pieChartConfig.data = pieData;
-      pieChartConfig.legend = {
-        show: true,
-        position: 'right'
-      };
-      pieChartConfig.size = {
-        width: 481,
-        height: 251
-      };
-      pieChartConfig.color={ pattern:[
-        $.pfPaletteColors.orange,
-        $.pfPaletteColors.red,
-        $.pfPaletteColors.blue,
-        $.pfPaletteColors.green,
-        $.pfPaletteColors.gold,
-        $.pfPaletteColors.purple,
-        $.pfPaletteColors.black
-      ]};
-      var pieChartLegend = c3.generate(pieChartConfig);
+      if (this.dashboardData.squidclamav.sinceIso) {
+        this.squidclamavSince = new Date(this.dashboardData.squidclamav.sinceIso).getTime();
+      } else {
+        this.squidclamavSince = 0
+      }
     },
-    initWebMalwareChart() {
+    initMalwareChart(instance) {
       var c3ChartDefaults = $().c3ChartDefaults();
 
       var pieData = {
         type : 'pie',
-        columns: this.groupSmallPieCategories(this.dashboardData.squidclamav.malwareStats)
+        columns: this.groupSmallPieCategories(this.dashboardData[instance].malwareStats)
       };
 
       var pieChartConfig = c3ChartDefaults.getDefaultPieConfig();
-      pieChartConfig.bindto = '#pie-chart-squidclamav';
+      pieChartConfig.bindto = '#pie-chart-' + instance;
       pieChartConfig.data = pieData;
       pieChartConfig.legend = {
         show: true,
         position: 'right'
       };
       pieChartConfig.size = {
-        width: 481,
-        height: 251
+        width: 450,
+        height: 220
       };
       pieChartConfig.color={ pattern:[
         $.pfPaletteColors.orange,

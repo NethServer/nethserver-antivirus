@@ -1,6 +1,21 @@
 <template>
   <div>
     <h1>{{$t('settings.title')}}</h1>
+
+    <!-- info -->
+    <div class="alert alert-info">
+      <span class="pficon pficon-info"></span>
+      {{$t('settings.info_notification')}}
+    </div>
+
+    <!-- memory warning -->
+    <div
+      class="alert alert-warning"
+      v-if="uiLoaded && (totalMemory < 4000) && officialSignatures"
+    >
+      <span class="pficon pficon-warning-triangle-o"></span>
+      {{$t('settings.memory_warning')}}
+    </div>
     
     <!-- error message -->
     <div v-if="errorMessage" class="alert alert-danger alert-dismissable">
@@ -13,15 +28,20 @@
 
     <div v-if="!uiLoaded" class="spinner spinner-lg"></div>
     <div v-if="uiLoaded">
-      <form class="form-horizontal mg-top-30" v-on:submit.prevent="saveConfiguration">
+      <form class="form-horizontal" v-on:submit.prevent="saveConfiguration">
         <!-- official signatures -->
         <div class="form-group">
-          <label
-            class="col-sm-2 control-label"
-          >{{$t('settings.official_signatures')}}</label>
-          <div class="col-sm-5">
+          <label class="col-sm-3 control-label">
+            {{$t('settings.official_signatures')}}
+            <doc-info
+              :placement="'top'"
+              :title="$t('settings.official_signatures')"
+              :chapter="'official_signatures'"
+              :inline="true"
+            ></doc-info>
+          </label>
+          <div class="col-sm-4">
             <input
-              @click="toggleOfficialSignatures()"
               v-model="officialSignatures"
               type="checkbox"
               class="form-control"
@@ -30,9 +50,15 @@
         </div>
         <!-- unofficial signatures rating -->
         <div class="form-group">
-          <label
-            class="col-sm-2 control-label"
-          >{{$t('settings.unofficial_signatures_rating')}}</label>
+          <label class="col-sm-3 control-label">
+            {{$t('settings.unofficial_signatures_rating')}}
+            <doc-info
+              :placement="'top'"
+              :title="$t('settings.unofficial_signatures_rating')"
+              :chapter="'unofficial_signatures_ratings'"
+              :inline="true"
+            ></doc-info>
+          </label>
           <div class="col-sm-2">
             <select
               type="text"
@@ -51,10 +77,11 @@
         </div>
         <!-- save button -->
         <div class="form-group">
-          <label class="col-sm-2 control-label">
+          <label class="col-sm-3 control-label">
           </label>
-          <div class="col-sm-5">
+          <div class="col-sm-4">
             <button 
+              :disabled="saving"
               class="btn btn-primary" 
               type="submit"
             >
@@ -78,11 +105,14 @@ export default {
       uiLoaded: false,
       errorMessage: null,
       clamdConfig: null,
+      officialSignatures: false,
       unofficialSignaturesRatingList: [
         "low",
         "medium",
         "high"
-      ]
+      ],
+      totalMemory: 0,
+      saving: false,
     }
   },
   methods: {
@@ -97,24 +127,45 @@ export default {
       var ctx = this;
       nethserver.exec(
         ["nethserver-antivirus/settings/read"],
-        null,
+        {
+          "appInfo": "clamdConfig"
+        },
         null,
         function(success) {
           success = JSON.parse(success);
           ctx.clamdConfig = success.configuration.props;
-          ctx.officialSignatures = ctx.clamdConfig.OfficialSignatures === "enabled";
-          ctx.uiLoaded = true;
+          ctx.getConfigSuccess();
         },
         function(error) {
           ctx.showErrorMessage(ctx.$i18n.t("settings.error_reading_configuration"), error)
         }
       );
     },
+    getConfigSuccess() {
+      this.officialSignatures = this.clamdConfig.OfficialSignatures === "enabled";
+      var ctx = this;
+      nethserver.exec(
+        ["nethserver-antivirus/settings/read"],
+        {
+          "appInfo": "totalMemory"
+        },
+        null,
+        function(success) {
+          success = JSON.parse(success);
+          ctx.totalMemory = success.totalMemory;
+          ctx.uiLoaded = true;
+        },
+        function(error) {
+          ctx.showErrorMessage(ctx.$i18n.t("settings.error_reading_total_memory"), error)
+        }
+      );
+    },
     saveConfiguration() {
-      this.errorMessage = null;
+      this.saving = true
+      this.errorMessage = null
 
       var configValidate = {
-        "OfficialSignatures": this.clamdConfig.OfficialSignatures,
+        "OfficialSignatures": this.officialSignatures ? "enabled" : "disabled",
         "UnofficialSignaturesRating": this.clamdConfig.UnofficialSignaturesRating
       }
       var ctx = this;
@@ -128,6 +179,7 @@ export default {
         function(error, data) {
           // no need for field highlighting
           ctx.showErrorMessage(ctx.$i18n.t("settings.error_validating_configuration"), error)
+          this.saving = false
           ctx.uiLoaded = true
         }
       );
@@ -145,27 +197,19 @@ export default {
           console.info("antivirus-configuration-update", stream); /* eslint-disable-line no-console */
         },
         function(success) {
+          ctx.saving = false
           ctx.getConfig()
         },
         function(error) {
           console.error(error)  /* eslint-disable-line no-console */
+          ctx.saving = false
           ctx.uiLoaded = true
         }
       );
-    },
-    toggleOfficialSignatures() {
-      if (this.clamdConfig.OfficialSignatures === "enabled") {
-        this.clamdConfig.OfficialSignatures = "disabled"
-      } else {
-        this.clamdConfig.OfficialSignatures = "enabled"
-      }
     }
   }
 };
 </script>
 
 <style scoped>
-.mg-top-30 {
-  margin-top: 30px;
-}
 </style>

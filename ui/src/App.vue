@@ -68,7 +68,7 @@ export default {
   },
   mounted() {
     var path = localStorage.getItem("path") || "/";
-    this.$router.push(path);
+    this.$router.push(path).catch(err => {});
   },
   methods: {
     getCurrentPath(route, offset) {
@@ -136,5 +136,21 @@ export default {
 
 .red {
   color: #cc0000;
+}
+
+.gray {
+    color: #72767b;
+}
+
+.pie-chart {
+  margin-top: 15px;
+}
+
+.right {
+  float: right;
+}
+
+.mg-top-20 {
+  margin-top: 20px;
 }
 </style>
