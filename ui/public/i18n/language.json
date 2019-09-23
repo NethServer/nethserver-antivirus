@@ -7,7 +7,7 @@
         "error_validating_configuration": "Error validating antivirus configuration",
         "configuration_update_successful": "Configuration update successful",
         "configuration_update_failed": "Configuration update failed",
-        "info_notification": "Signatures are downloaded at regular intervals. Changes to this page will take effect on next automatic signatures download.",
+        "info_notification": "Signatures are downloaded at hourly intervals. Changes to this page will take effect on next automatic signatures download.",
         "error_reading_total_memory": "Error reading total memory",
         "memory_warning": "The system has less than 4GB of RAM. You're strongly advised to disable official ClamAV signatures to avoid memory filling."
     },
@@ -40,8 +40,8 @@
         "no_instance_installed": "No ClamAV instance installed"
     },
     "docs": {
-        "official_signatures": "Official ClamAV signatures use a large amount of memory. Official signatures can identify many old threats but usually are quite ineffective on mail and web traffic",
-        "unofficial_signatures_ratings": "Higher rating means more blocked threats but also a more possibility of false positive. Recommended ratings are 'low' and 'medium'"
+        "official_signatures": "Official ClamAV signatures use a large amount of memory. Official signatures detect many old threats but are not very effective against the latest malware.",
+        "unofficial_signatures_ratings": "Higher rating means more blocked threats but also a higher probability of false positives. Recommended ratings are 'Low' and 'Medium'."
     },
     "save": "Save",
     "cancel": "Cancel"

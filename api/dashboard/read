@@ -32,6 +32,7 @@ function instance_data() {
         num_signatures=0
         chart_entries=""
         memory_used=0
+        since=0
     else
         is_installed=true
         status=$(systemctl is-active clamd@$instance)
@@ -74,14 +75,25 @@ function instance_data() {
         # since
         since_iso=$(journalctl -u clamd@$instance -o short-iso | head -n2 | tail -n1 | awk '{print $1}')
         if [ "$since_iso" == "--" ]; then
-            since_iso=""
+            # no journal entries
+            since=0
+        else
+            since=$(date -d "$since_iso" +"%s")
         fi
     fi
 
-    echo "\"$instance\": { \"installed\": $is_installed, \"active\": $is_active, \"malwareFound\": $num_malware, \"signatures\": $num_signatures, \"malwareStats\": [$chart_entries], \"memoryUsedKb\": $memory_used, \"sinceIso\": \"$since_iso\" }"
+    echo "\"$instance\": { \"installed\": $is_installed, \"active\": $is_active, \"malwareFound\": $num_malware, \"signatures\": $num_signatures, \"malwareStats\": [$chart_entries], \"memoryUsedKb\": $memory_used, \"since\": $since }"
 }
 
 rspamd_data=$(instance_data rspamd)
 squidclamav_data=$(instance_data squidclamav)
 
-echo -n "{ $rspamd_data, $squidclamav_data }"
+# signatures last updated
+signatures_directory=/var/lib/clamav
+if [ -d "$signatures_directory" ]; then
+    signatures_updated=$(stat  -c "%Y"  $(find /var/lib/clamav -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "))
+else
+    signatures_updated=0
+fi
+
+echo -n "{ $rspamd_data, $squidclamav_data, \"signaturesUpdated\": $signatures_updated }"

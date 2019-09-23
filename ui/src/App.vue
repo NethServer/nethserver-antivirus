@@ -153,4 +153,8 @@ export default {
 .mg-top-20 {
   margin-top: 20px;
 }
+
+.mg-top-5-imp {
+  margin-top: 5px !important;
+}
 </style>

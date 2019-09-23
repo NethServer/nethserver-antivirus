@@ -26,7 +26,7 @@
       <div class="row" v-if="uiLoaded && dashboardData.rspamd.installed">
         <h4 class="right gray mg-top-20">
           {{$t('dashboard.since')}}
-          <b>{{ rspamdSince | dateFormat }}</b>
+          <b>{{ dashboardData.rspamd.since | dateFormat }}</b>
         </h4>
         <h3>{{ $t('dashboard.email_protection') }}</h3>
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
@@ -57,9 +57,12 @@
           <span class="card-pf-utilization-card-details-count stats-count">
             {{ dashboardData.rspamd.signatures }}
           </span>
-          <span class="card-pf-utilization-card-details-description stats-description">
+          <span class="card-pf-utilization-card-details-description stats-description mg-top-minus-7">
             <span class="card-pf-utilization-card-details-line-2 stats-text">
               {{ $t('dashboard.signatures_loaded') }}
+            </span>
+            <span class="card-pf-utilization-card-details-line-2 stats-text mg-top-5-imp">
+              ({{ dashboardData.signaturesUpdated | shortDateFormat }})
             </span>
           </span>
         </div>
@@ -95,7 +98,7 @@
       <div class="row" v-if="uiLoaded && dashboardData.squidclamav.installed">
         <h4 class="right gray mg-top-20">
           {{$t('dashboard.since')}}
-          <b>{{ squidclamavSince | dateFormat }}</b>
+          <b>{{ dashboardData.squidclamav.since | dateFormat }}</b>
         </h4>
         <h3>{{ $t('dashboard.web_protection') }}</h3>
 
@@ -126,10 +129,13 @@
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span class="card-pf-utilization-card-details-count stats-count">
             {{ dashboardData.squidclamav.signatures }}</span>
-          <span class="card-pf-utilization-card-details-description stats-description">
-            <span
-              class="card-pf-utilization-card-details-line-2 stats-text"
-            >{{ $t('dashboard.signatures_loaded') }}</span>
+          <span class="card-pf-utilization-card-details-description stats-description mg-top-minus-7">
+            <span class="card-pf-utilization-card-details-line-2 stats-text">
+              {{ $t('dashboard.signatures_loaded') }}
+            </span>
+            <span class="card-pf-utilization-card-details-line-2 stats-text  mg-top-5-imp">
+              ({{ dashboardData.signaturesUpdated | shortDateFormat }})
+            </span>
           </span>
         </div>
 
@@ -198,7 +204,6 @@ export default {
         function(success) {
           success = JSON.parse(success);
           ctx.dashboardData = success;
-          ctx.convertSinceTime();
           ctx.uiLoaded = true;
 
           setTimeout(function() {
@@ -214,19 +219,6 @@ export default {
           ctx.showErrorMessage(ctx.$i18n.t("dashboard.error_getting_dashboard_data"), error)
         }
       );
-    },
-    convertSinceTime() {
-      if (this.dashboardData.rspamd.sinceIso) {
-        this.rspamdSince = new Date(this.dashboardData.rspamd.sinceIso).getTime();
-      } else {
-        this.rspamdSince = 0
-      }
-
-      if (this.dashboardData.squidclamav.sinceIso) {
-        this.squidclamavSince = new Date(this.dashboardData.squidclamav.sinceIso).getTime();
-      } else {
-        this.squidclamavSince = 0
-      }
     },
     initMalwareChart(instance) {
       var c3ChartDefaults = $().c3ChartDefaults();
@@ -296,5 +288,9 @@ export default {
 .empty-piechart .fa {
   font-size: 200px;
   color: #bbbbbb;
+}
+
+.mg-top-minus-7 {
+  margin-top: -7px;
 }
 </style>
