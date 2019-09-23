@@ -1,0 +1,70 @@
+#!/usr/bin/python
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+import sys
+import fileinput
+import simplejson
+
+def invalid_attribute(parameter, error):
+    return { "parameter": parameter, "error": error, "value": "" }
+
+line = fileinput.input()[0].rstrip()
+input_json = simplejson.loads(line)
+invalid_attributes = []
+
+official_signatures_p = 'OfficialSignatures'
+unofficial_signatures_rating_p = 'UnofficialSignaturesRating'
+
+# official signatures
+
+if (official_signatures_p not in input_json) or (not input_json[official_signatures_p]):
+    invalid_attributes.append(invalid_attribute(official_signatures_p, "empty"))
+else:
+    official_signatures = input_json[official_signatures_p]
+
+    if official_signatures not in [ 'enabled', 'disabled' ]:
+        invalid_attributes.append(invalid_attribute(official_signatures_p, "invalid"))
+
+# unofficial signatures rating
+
+if (unofficial_signatures_rating_p not in input_json) or (not input_json[unofficial_signatures_rating_p]):
+    invalid_attributes.append(invalid_attribute(unofficial_signatures_rating_p, "empty"))
+else:
+    unofficial_signatures_rating = input_json[unofficial_signatures_rating_p]
+
+    if unofficial_signatures_rating not in [ 'low', 'medium', 'high' ]:
+        invalid_attributes.append(invalid_attribute(unofficial_signatures_rating_p, "invalid"))
+
+# output
+
+success = len(invalid_attributes) == 0
+
+if success:
+    output = { "state":"success" }
+else:
+    output = { "type": "NotValid", "message": "validation_failed", "attributes": invalid_attributes }
+
+output_json = simplejson.dumps(output)
+print(output_json)
+
+if not success:
+    sys.exit(1)

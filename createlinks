@@ -46,3 +46,18 @@ event_actions('nethserver-antivirus-update',
 event_templates('proxy-modify', qw(
     /etc/freshclam.conf
 ));
+
+#
+# nethserver-antivirus-save event
+#
+
+my $event = 'nethserver-antivirus-save';
+
+event_templates($event, qw(
+    /etc/clamav-unofficial-sigs/user.conf
+    /etc/sysconfig/freshclam
+));
+
+event_actions($event, qw(
+    nethserver-antivirus-init-avdb 30
+));

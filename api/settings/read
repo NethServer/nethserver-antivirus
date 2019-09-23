@@ -1,0 +1,60 @@
+#!/usr/bin/python
+
+#
+# Copyright (C) 2019 Nethesis S.r.l.
+# http://www.nethesis.it - nethserver@nethesis.it
+#
+# This script is part of NethServer.
+#
+# NethServer is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or any later version.
+#
+# NethServer is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with NethServer.  If not, see COPYING.
+#
+
+import sys
+import subprocess
+import simplejson
+import fileinput
+
+def read_config(config_name):
+    bash_command = "/sbin/e-smith/config getjson %s" % config_name
+    process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    config_json = simplejson.loads(output)
+    return config_json
+
+def get_total_memory():
+    p1 = subprocess.Popen(['free', '-m'], stdout=subprocess.PIPE)
+    p2 = subprocess.Popen(['grep', 'Mem'], stdin=p1.stdout, stdout=subprocess.PIPE)
+    p1.stdout.close()
+    p3 = subprocess.Popen(['awk', "{print $2}"], stdin=p2.stdout, stdout=subprocess.PIPE)
+    p2.stdout.close()
+    output = p3.communicate()[0]
+    total_memory = output.rstrip()
+    return total_memory
+
+try:
+    line = fileinput.input()[0].rstrip()
+    input_json = simplejson.loads(line)
+    app_info = input_json["appInfo"]
+
+    if app_info == 'clamdConfig':
+        clamd_config = read_config('clamd')
+        output = simplejson.dumps({'configuration': clamd_config})
+        print (output)
+    elif app_info == 'totalMemory':
+        total_memory = get_total_memory()
+        output = simplejson.dumps({ 'totalMemory': total_memory })
+        print (output)
+except Exception, e:
+    print simplejson.dumps({ 'error': "%s" % e })
+    sys.exit(1)
