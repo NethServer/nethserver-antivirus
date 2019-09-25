@@ -1,0 +1,13 @@
+#
+# API delegation for nethserver-antivirus
+#
+
+Cmnd_Alias NSAPI_NETHSERVER_ANTIVIRUS = \
+    /usr/libexec/nethserver/api/nethserver-antivirus/dashboard/read, \
+    /usr/libexec/nethserver/api/nethserver-antivirus/logs/read, \
+    /usr/libexec/nethserver/api/nethserver-antivirus/settings/read, \
+    /usr/libexec/nethserver/api/nethserver-antivirus/settings/update, \
+    /usr/libexec/nethserver/api/nethserver-antivirus/settings/validate 
+
+# server-manager does not require a tty
+Defaults!NSAPI_NETHSERVER_ANTIVIRUS !requiretty
