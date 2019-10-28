@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -47,6 +47,9 @@ cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
 
 %changelog
+* Mon Oct 28 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.1-1
+- Logs page in Cockpit - Bug NethServer/dev#5866
+
 * Tue Oct 01 2019 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.4.0-1
 - New NethServer 7.7.1908 defaults - NethServer/dev#5831
 - Antivirus Cockpit UI - NethServer/dev#5836
