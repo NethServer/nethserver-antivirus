@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{$t('settings.title')}}</h1>
+    <h2>{{$t('settings.title')}}</h2>
 
     <!-- info -->
     <div class="alert alert-info">
