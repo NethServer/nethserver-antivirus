@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{$t('dashboard.title')}}</h1>
+    <h2>{{$t('dashboard.title')}}</h2>
     <!-- error message -->
     <div v-if="errorMessage" class="alert alert-danger alert-dismissable">
       <button type="button" class="close" @click="closeErrorMessage()" aria-label="Close">
