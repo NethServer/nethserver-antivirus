@@ -41,3 +41,6 @@ rm -f /etc/clamav-unofficial-sigs/clamav-unofficial-sigs.conf
 
 # Restart all clamd instances
 systemctl try-restart clamd@*
+
+# Temporary fix for https://bugzilla.redhat.com/show_bug.cgi?id=1794506
+sed -i  's/MAILTO=root/MAILTO=/' /etc/cron.d/clamav-unofficial-sigs
