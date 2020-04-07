@@ -11,6 +11,7 @@ BuildArch: noarch
 Requires: nethserver-base
 Requires: clamd
 Requires: clamav-unofficial-sigs
+Obsoletes: clamav-data
 
 BuildRequires: nethserver-devtools
 
