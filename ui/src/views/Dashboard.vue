@@ -43,8 +43,8 @@
         </div>
 
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
-          <span class="card-pf-utilization-card-details-count stats-count">
-            {{ dashboardData.rspamd.malwareFound }}
+          <span class="card-pf-utilization-card-details-count stats-count" :title="dashboardData.rspamd.malwareFound">
+            {{ dashboardData.rspamd.malwareFound | humanFormat }}
           </span>
           <span class="card-pf-utilization-card-details-description stats-description">
             <span class="card-pf-utilization-card-details-line-2 stats-text">
@@ -54,8 +54,8 @@
         </div>
 
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
-          <span class="card-pf-utilization-card-details-count stats-count">
-            {{ dashboardData.rspamd.signatures }}
+          <span class="card-pf-utilization-card-details-count stats-count" :title="dashboardData.rspamd.signatures">
+            {{ dashboardData.rspamd.signatures | humanFormat }}
           </span>
           <span class="card-pf-utilization-card-details-description stats-description mg-top-minus-7">
             <span class="card-pf-utilization-card-details-line-2 stats-text">
@@ -117,8 +117,8 @@
 
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
           <span
-            class="card-pf-utilization-card-details-count stats-count"
-          >{{ dashboardData.squidclamav.malwareFound }}</span>
+            class="card-pf-utilization-card-details-count stats-count" :title="dashboardData.squidclamav.malwareFound"
+          >{{ dashboardData.squidclamav.malwareFound | humanFormat }}</span>
           <span class="card-pf-utilization-card-details-description stats-description">
             <span
               class="card-pf-utilization-card-details-line-2 stats-text"
@@ -127,8 +127,8 @@
         </div>
 
         <div class="stats-container col-xs-12 col-sm-3 col-md-3 col-lg-3">
-          <span class="card-pf-utilization-card-details-count stats-count">
-            {{ dashboardData.squidclamav.signatures }}</span>
+          <span class="card-pf-utilization-card-details-count stats-count" :title="dashboardData.squidclamav.signatures">
+            {{ dashboardData.squidclamav.signatures | humanFormat }}</span>
           <span class="card-pf-utilization-card-details-description stats-description mg-top-minus-7">
             <span class="card-pf-utilization-card-details-line-2 stats-text">
               {{ $t('dashboard.signatures_loaded') }}
