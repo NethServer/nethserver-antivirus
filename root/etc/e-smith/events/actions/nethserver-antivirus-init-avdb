@@ -39,5 +39,10 @@ fi
 # Remove old unused clamav-unofficial-sigs config file
 rm -f /etc/clamav-unofficial-sigs/clamav-unofficial-sigs.conf
 
-# Restart all clamd instances
-systemctl try-restart clamd@*
+# Restart all clamd instances if the configuration exist
+for file in /etc/clamd.d/*
+do
+    file=$(basename "$file")
+    file=${file//.conf/}
+    systemctl try-restart clamd@$file
+done
