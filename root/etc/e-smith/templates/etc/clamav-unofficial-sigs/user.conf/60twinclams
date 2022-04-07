@@ -1,0 +1,7 @@
+
+# Twinclams additional sigantures (TwinWave.io)
+declare -a additional_dbs=(
+   https://github.com/twinwave-security/twinclams/raw/master/twinclams.ldb
+   https://raw.githubusercontent.com/twinwave-security/twinclams/master/twinwave.ign2
+)
+
