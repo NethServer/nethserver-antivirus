@@ -61,3 +61,12 @@ event_templates($event, qw(
 event_actions($event, qw(
     nethserver-antivirus-init-avdb 30
 ));
+
+#
+# post-restore-data event
+#
+
+$event = "post-restore-data";
+event_actions($event, 
+   'nethserver-antivirus-fix-rsync-perms' => '10',
+);
