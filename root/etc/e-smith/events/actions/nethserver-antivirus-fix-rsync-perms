@@ -37,7 +37,7 @@ if [ "$(/sbin/e-smith/config getprop backup-data IncludeLogs)" == "enabled" ]; t
   fi
 
   if [[ -f "/var/log/freshclam.log" ]]; then
-    /bin/chown -R root:clamupdate /var/log/freshclam.log
+    /bin/chown root:clamupdate /var/log/freshclam.log
   fi
 fi
 
