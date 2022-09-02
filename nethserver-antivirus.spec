@@ -1,6 +1,6 @@
 Summary: Integration of Clam AntiVirus for email and filesystem checks.
 Name: nethserver-antivirus
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 License: GPLv3
 URL: %{url_prefix}/%{name} 
@@ -48,6 +48,9 @@ cp -a api/* %{buildroot}/usr/libexec/nethserver/api/%{name}/
 
 
 %changelog
+* Fri Sep 02 2022 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.1-1
+- rsync disaster recovery introduces permissions issue - Bug NethServer/dev#6691
+
 * Wed Apr 13 2022 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.6.0-1
 - ClamAV DB: Add TwinClams - NethServer/dev#6653
 
